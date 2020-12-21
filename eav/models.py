@@ -60,6 +60,7 @@ class EnumValue(models.Model):
        the same *Yes* and *No* *EnumValues* for both *EnumGroups*.
     """
     value = models.CharField(_('Value'), db_index=True, unique=True, max_length=50)
+    value_display = models.CharField(_('Value Display'), db_index=True, max_length=50)
 
     def __str__(self):
         return '<EnumValue {}>'.format(self.value)
