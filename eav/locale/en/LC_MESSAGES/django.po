@@ -1,0 +1,181 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2020-12-03 17:26+0100\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: src/django-eav2/eav/fields.py:25
+msgid ""
+"Must be all lower case, start with a letter, and contain only letters, "
+"numbers, or underscores."
+msgstr ""
+
+#: src/django-eav2/eav/fields.py:62
+msgid "You cannot change the datatype of an attribute that is already in use."
+msgstr ""
+
+#: src/django-eav2/eav/forms.py:91
+#, python-format
+msgid "The %s could not be saved because the datadidn't validate."
+msgstr ""
+
+#: src/django-eav2/eav/models.py:62
+msgid "Value"
+msgstr ""
+
+#: src/django-eav2/eav/models.py:76 src/django-eav2/eav/models.py:161
+msgid "Name"
+msgstr ""
+
+#: src/django-eav2/eav/models.py:77
+msgid "Enum group"
+msgstr ""
+
+#: src/django-eav2/eav/models.py:143
+msgid "Text"
+msgstr ""
+
+#: src/django-eav2/eav/models.py:144
+msgid "Date"
+msgstr ""
+
+#: src/django-eav2/eav/models.py:145
+msgid "Float"
+msgstr ""
+
+#: src/django-eav2/eav/models.py:146
+msgid "Integer"
+msgstr ""
+
+#: src/django-eav2/eav/models.py:147
+msgid "True / False"
+msgstr ""
+
+#: src/django-eav2/eav/models.py:148
+msgid "Django Object"
+msgstr ""
+
+#: src/django-eav2/eav/models.py:149
+msgid "Multiple Choice"
+msgstr ""
+
+#: src/django-eav2/eav/models.py:155
+msgid "Data Type"
+msgstr ""
+
+#: src/django-eav2/eav/models.py:163
+msgid "User-friendly attribute name"
+msgstr ""
+
+#: src/django-eav2/eav/models.py:172
+msgid "Slug"
+msgstr ""
+
+#: src/django-eav2/eav/models.py:176
+msgid "Short unique attribute label"
+msgstr ""
+
+#: src/django-eav2/eav/models.py:185
+msgid "Required"
+msgstr ""
+
+#: src/django-eav2/eav/models.py:197
+msgid "Choice Group"
+msgstr ""
+
+#: src/django-eav2/eav/models.py:204
+msgid "Description"
+msgstr ""
+
+#: src/django-eav2/eav/models.py:208
+msgid "Short description"
+msgstr ""
+
+#: src/django-eav2/eav/models.py:214
+msgid "Display order"
+msgstr ""
+
+#: src/django-eav2/eav/models.py:219 src/django-eav2/eav/models.py:410
+msgid "Modified"
+msgstr ""
+
+#: src/django-eav2/eav/models.py:224 src/django-eav2/eav/models.py:409
+msgid "Created"
+msgstr ""
+
+#: src/django-eav2/eav/models.py:268
+#, python-format
+msgid "%(val)s is not a valid choice for %(attr)s"
+msgstr ""
+
+#: src/django-eav2/eav/models.py:291
+msgid "You must set the choice group for multiple choice attributes"
+msgstr ""
+
+#: src/django-eav2/eav/models.py:296
+msgid "You can only assign a choice group to multiple choice attributes"
+msgstr ""
+
+#: src/django-eav2/eav/models.py:416
+msgid "Attribute"
+msgstr ""
+
+#: src/django-eav2/eav/models.py:498
+#, python-format
+msgid "%(obj)s has no EAV attribute named %(attr)s"
+msgstr ""
+
+#: src/django-eav2/eav/models.py:568
+msgid "{} EAV field cannot be blank"
+msgstr ""
+
+#: src/django-eav2/eav/models.py:575
+#, python-format
+msgid "%(attr)s EAV field %(err)s"
+msgstr ""
+
+#: src/django-eav2/eav/validators.py:25
+msgid "Must be str or unicode"
+msgstr ""
+
+#: src/django-eav2/eav/validators.py:35
+msgid "Must be a float"
+msgstr ""
+
+#: src/django-eav2/eav/validators.py:45
+msgid "Must be an integer"
+msgstr ""
+
+#: src/django-eav2/eav/validators.py:54
+msgid "Must be a date or datetime"
+msgstr ""
+
+#: src/django-eav2/eav/validators.py:62
+msgid "Must be a boolean"
+msgstr ""
+
+#: src/django-eav2/eav/validators.py:71
+msgid "Must be a django model object instance"
+msgstr ""
+
+#: src/django-eav2/eav/validators.py:74
+msgid "Model has not been saved yet"
+msgstr ""
+
+#: src/django-eav2/eav/validators.py:85
+msgid "EnumValue has not been saved yet"
+msgstr ""
