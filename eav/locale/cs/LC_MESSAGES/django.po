@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-12-03 17:26+0100\n"
+"POT-Creation-Date: 2021-02-03 16:48+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -19,164 +19,170 @@ msgstr ""
 "Plural-Forms: nplurals=4; plural=(n == 1 && n % 1 == 0) ? 0 : (n >= 2 && n "
 "<= 4 && n % 1 == 0) ? 1: (n % 1 != 0 ) ? 2 : 3;\n"
 
-#: src/django-eav2/eav/fields.py:25
+#: venv/src/django-eav2/eav/fields.py:25
 msgid ""
 "Must be all lower case, start with a letter, and contain only letters, "
 "numbers, or underscores."
 msgstr ""
 
-#: src/django-eav2/eav/fields.py:62
+#: venv/src/django-eav2/eav/fields.py:62
 msgid "You cannot change the datatype of an attribute that is already in use."
 msgstr ""
 
-#: src/django-eav2/eav/forms.py:91
+#: venv/src/django-eav2/eav/forms.py:91
 #, python-format
 msgid "The %s could not be saved because the datadidn't validate."
 msgstr ""
 
-#: src/django-eav2/eav/models.py:62
+#: venv/src/django-eav2/eav/models.py:62
 msgid "Value"
 msgstr ""
 
-#: src/django-eav2/eav/models.py:76 src/django-eav2/eav/models.py:161
+#: venv/src/django-eav2/eav/models.py:63
+msgid "Value Display"
+msgstr ""
+
+#: venv/src/django-eav2/eav/models.py:77 venv/src/django-eav2/eav/models.py:162
 msgid "Name"
 msgstr ""
 
-#: src/django-eav2/eav/models.py:77
+#: venv/src/django-eav2/eav/models.py:78
 msgid "Enum group"
 msgstr ""
 
-#: src/django-eav2/eav/models.py:143
+#: venv/src/django-eav2/eav/models.py:144
 msgid "Text"
 msgstr ""
 
-#: src/django-eav2/eav/models.py:144
+#: venv/src/django-eav2/eav/models.py:145
 msgid "Date"
 msgstr ""
 
-#: src/django-eav2/eav/models.py:145
+#: venv/src/django-eav2/eav/models.py:146
 msgid "Float"
 msgstr ""
 
-#: src/django-eav2/eav/models.py:146
+#: venv/src/django-eav2/eav/models.py:147
 msgid "Integer"
 msgstr ""
 
-#: src/django-eav2/eav/models.py:147
+#: venv/src/django-eav2/eav/models.py:148
 msgid "True / False"
 msgstr ""
 
-#: src/django-eav2/eav/models.py:148
+#: venv/src/django-eav2/eav/models.py:149
 msgid "Django Object"
 msgstr ""
 
-#: src/django-eav2/eav/models.py:149
+#: venv/src/django-eav2/eav/models.py:150
 msgid "Multiple Choice"
 msgstr ""
 
-#: src/django-eav2/eav/models.py:155
+#: venv/src/django-eav2/eav/models.py:156
 msgid "Data Type"
 msgstr ""
 
-#: src/django-eav2/eav/models.py:163
+#: venv/src/django-eav2/eav/models.py:164
 msgid "User-friendly attribute name"
 msgstr ""
 
-#: src/django-eav2/eav/models.py:172
+#: venv/src/django-eav2/eav/models.py:173
 msgid "Slug"
 msgstr ""
 
-#: src/django-eav2/eav/models.py:176
+#: venv/src/django-eav2/eav/models.py:177
 msgid "Short unique attribute label"
 msgstr ""
 
-#: src/django-eav2/eav/models.py:185
+#: venv/src/django-eav2/eav/models.py:186
 msgid "Required"
 msgstr ""
 
-#: src/django-eav2/eav/models.py:197
+#: venv/src/django-eav2/eav/models.py:198
 msgid "Choice Group"
 msgstr ""
 
-#: src/django-eav2/eav/models.py:204
+#: venv/src/django-eav2/eav/models.py:205
 msgid "Description"
 msgstr ""
 
-#: src/django-eav2/eav/models.py:208
+#: venv/src/django-eav2/eav/models.py:209
 msgid "Short description"
 msgstr ""
 
-#: src/django-eav2/eav/models.py:214
+#: venv/src/django-eav2/eav/models.py:215
 msgid "Display order"
 msgstr ""
 
-#: src/django-eav2/eav/models.py:219 src/django-eav2/eav/models.py:410
+#: venv/src/django-eav2/eav/models.py:220
+#: venv/src/django-eav2/eav/models.py:411
 msgid "Modified"
 msgstr ""
 
-#: src/django-eav2/eav/models.py:224 src/django-eav2/eav/models.py:409
+#: venv/src/django-eav2/eav/models.py:225
+#: venv/src/django-eav2/eav/models.py:410
 msgid "Created"
 msgstr ""
 
-#: src/django-eav2/eav/models.py:268
+#: venv/src/django-eav2/eav/models.py:269
 #, python-format
 msgid "%(val)s is not a valid choice for %(attr)s"
 msgstr ""
 
-#: src/django-eav2/eav/models.py:291
+#: venv/src/django-eav2/eav/models.py:292
 msgid "You must set the choice group for multiple choice attributes"
 msgstr ""
 
-#: src/django-eav2/eav/models.py:296
+#: venv/src/django-eav2/eav/models.py:297
 msgid "You can only assign a choice group to multiple choice attributes"
 msgstr ""
 
-#: src/django-eav2/eav/models.py:416
+#: venv/src/django-eav2/eav/models.py:417
 msgid "Attribute"
 msgstr ""
 
-#: src/django-eav2/eav/models.py:498
+#: venv/src/django-eav2/eav/models.py:499
 #, python-format
 msgid "%(obj)s has no EAV attribute named %(attr)s"
 msgstr ""
 
-#: src/django-eav2/eav/models.py:568
+#: venv/src/django-eav2/eav/models.py:569
 msgid "{} EAV field cannot be blank"
 msgstr ""
 
-#: src/django-eav2/eav/models.py:575
+#: venv/src/django-eav2/eav/models.py:576
 #, python-format
 msgid "%(attr)s EAV field %(err)s"
 msgstr ""
 
-#: src/django-eav2/eav/validators.py:25
+#: venv/src/django-eav2/eav/validators.py:25
 msgid "Must be str or unicode"
 msgstr ""
 
-#: src/django-eav2/eav/validators.py:35
+#: venv/src/django-eav2/eav/validators.py:35
 msgid "Must be a float"
 msgstr ""
 
-#: src/django-eav2/eav/validators.py:45
+#: venv/src/django-eav2/eav/validators.py:45
 msgid "Must be an integer"
 msgstr ""
 
-#: src/django-eav2/eav/validators.py:54
+#: venv/src/django-eav2/eav/validators.py:54
 msgid "Must be a date or datetime"
 msgstr ""
 
-#: src/django-eav2/eav/validators.py:62
+#: venv/src/django-eav2/eav/validators.py:62
 msgid "Must be a boolean"
 msgstr ""
 
-#: src/django-eav2/eav/validators.py:71
+#: venv/src/django-eav2/eav/validators.py:71
 msgid "Must be a django model object instance"
 msgstr ""
 
-#: src/django-eav2/eav/validators.py:74
+#: venv/src/django-eav2/eav/validators.py:74
 msgid "Model has not been saved yet"
 msgstr ""
 
-#: src/django-eav2/eav/validators.py:85
+#: venv/src/django-eav2/eav/validators.py:85
 msgid "EnumValue has not been saved yet"
 msgstr ""

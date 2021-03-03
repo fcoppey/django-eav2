@@ -378,7 +378,7 @@ class Value(models.Model):
     entity_id = models.IntegerField()
     entity = generic.GenericForeignKey(ct_field = 'entity_ct', fk_field = 'entity_id')
 
-    value_text  = models.TextField(blank = True, null = True)
+    value_text  = models.CharField(max_length=500, blank = True, null = True)
     value_float = models.FloatField(blank = True, null = True)
     value_int   = models.IntegerField(blank = True, null = True)
     value_date  = models.DateTimeField(blank = True, null = True)
