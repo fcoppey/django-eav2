@@ -19,6 +19,8 @@ from django.db.models.base import ModelBase
 from django.utils import timezone
 from django.utils.translation import ugettext_lazy as _
 
+from sortedm2m.fields import SortedManyToManyField
+
 from .validators import (
     validate_text,
     validate_float,
@@ -75,7 +77,7 @@ class EnumGroup(models.Model):
     See :class:`EnumValue` for an example.
     """
     name = models.CharField(_('Name'), unique = True, max_length = 100)
-    values = models.ManyToManyField(EnumValue, verbose_name = _('Enum group'))
+    values = SortedManyToManyField(EnumValue, verbose_name = _('Enum group'))
 
     def __str__(self):
         return '<EnumGroup {}>'.format(self.name)
