@@ -4,6 +4,8 @@ from django.db import migrations
 
 def populate(apps, schema_editor):
     from eav.models import EnumGroup, EnumValue, Attribute
+    from django.contrib.contenttypes.models import ContentType
+    from algorithms.models import Algorithm
 
     seal_bag = EnumValue.objects.create(
         value='seal_bag',
@@ -25,26 +27,30 @@ def populate(apps, schema_editor):
         value_display='Direct contact',
         value_display_fr='contact direct'
     )
+
     unspecified = EnumValue.objects.create(
         value='unspecified',
         value_display='Unspecified',
         value_display_fr='Non spécifié'
     )
 
-    measure_type = EnumGroup.objects.create(
-        name='measure_type',
+    measure_types = EnumGroup.objects.create(
+        name='measure_types',
     )
 
-    measure_type.values.add(seal_bag, plastic, glass, direct, unknown)
+    measure_types.values.add(seal_bag, plastic, glass, direct, unspecified)
 
     Attribute.objects.create(
         slug='measure_type',
-        name='Measure Type',
+        name='Measure type',
         name_fr='Type de mesure',
         datatype=Attribute.TYPE_ENUM,
-        enum_group=measure_type
+        enum_group=measure_types
     )
 
+    Attribute.objects.get(slug='measure_type').entity_ct.add(ContentType.objects.get(app_label='measures', model='measure'))
+
+    Algorithm.objects.get(slug='narcotics').measure_attributes.add(Attribute.objects.get(slug='measure_type'))
 
 class Migration(migrations.Migration):
 

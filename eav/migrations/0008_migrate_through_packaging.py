@@ -2,6 +2,16 @@
 
 from django.db import migrations
 
+def populate(apps, schema_editor):
+    from eav.models import EnumGroup, EnumValue, Attribute
+    from measures.models import Measure, Sample
+
+    measures = Measure.eav_objects.filter(eav__through_packaging=True)
+    seal_bag = EnumValue.objects.get(value='seal_bag')
+    for measure in measures:
+        measure.eav.measure_type = seal_bag
+        measure.eav.save()
+
 
 class Migration(migrations.Migration):
 
@@ -10,4 +20,5 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
+        migrations.RunPython(populate)
     ]
