@@ -1,4 +1,7 @@
 from eav.models import EnumValue
 
 def unspecified():
-    return EnumValue.objects.get(value='unspecified')
+    try:
+        return EnumValue.objects.get(value='unspecified')
+    except:
+        return EnumValue.objects.first()

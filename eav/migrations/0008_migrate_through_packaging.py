@@ -17,6 +17,7 @@ class Migration(migrations.Migration):
 
     dependencies = [
         ('eav', '0007_create_measure_type_enum'),
+        ('measures', '0206_merge_20210816_0818'),
     ]
 
     operations = [
