@@ -160,6 +160,8 @@ stored in :class:`~eav.models.Value`). Available choices are:
 *bool*    ``TYPE_BOOLEAN``
 *object*  ``TYPE_OBJECT``
 *enum*    ``TYPE_ENUM``
+*json*    ``TYPE_JSON``
+*csv*     ``TYPE_CSV``
 ========= ==================
 
 If you want to create an attribute with data-type *enum*, you need to provide
@@ -180,6 +182,64 @@ it with ``enum_group``:
         enum_group=bool_group
     )
     # = <Attribute: hungry? (Multiple Choice)>
+
+The attribute type *json* allows to store them in JSON format, which internally use JSONField:
+
+.. code-block:: python
+
+    Attribute.objects.create(name='name_intl', datatype=Attribute.TYPE_JSON)
+
+    prod = Product.objects.create(sku='PRD00001', eav__name_intl={
+	"es": "Escoba Verde",
+	"en": "Green Broom",
+	"it": "Scopa Verde"
+    })
+
+    prod2 = Product.objects.create(sku='PRD00002', eav__name_intl={
+	"es": "Escoba Roja",
+	"en": "Red Broom"
+    })
+
+    prod3 = Product.objects.create(sku='PRD00003', eav__name_intl={
+	"es": "Escoba Azul",
+	"it": "Scopa Blu"
+    })
+
+    prod.eav.name_intl
+    {'es': 'Escoba Verde', 'en': 'Green Broom', 'it': 'Scopa Verde'}
+
+    type(prod.eav.name_intl)
+    dict
+
+    Product.objects.filter(eav__name_intl__has_key="it")
+    <EavQuerySet [<Product: PRD00001>, <Product: PRD00003>]>
+
+The attribute type *csv* allows to store Comma Separated Values, using ";" as a separator:
+
+.. code-block:: python
+
+    Attribute.objects.create(name='colors', datatype=Attribute.TYPE_CSV)
+
+    prod = Product.objects.create(sku='PRD00001', eav__colors="red;green;blue")
+
+    prod2 = Product.objects.create(sku='PRD00002', eav__colors="red;green")
+
+    prod3 = Product.objects.create(sku='PRD00003', eav__colors="red;blue")
+
+    prod4 = Product.objects.create(sku='PRD00004', eav__colors="")
+
+    prod.eav.colors
+    ["red", "green", "blue"]
+
+    type(prod.eav.name_intl)
+    list
+
+    Product.objects.filter(eav__name_colors="green")
+    <EavQuerySet [<Product: PRD00001>, <Product: PRD00002>]>
+
+    Product.objects.filter(~Q(eav__name_colors__isnull=False))
+    <EavQuerySet [<Product: PRD00004>]>
+
 
 Finally, attribute type *object* allows to relate Django model instances
 via generic foreign keys:

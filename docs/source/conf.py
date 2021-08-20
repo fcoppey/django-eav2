@@ -26,7 +26,8 @@ settings.configure(
         'django.contrib.messages',
         'django.contrib.staticfiles',
         'eav'
-    ]
+    ],
+    SECRET_KEY=os.environ.get("DJANGO_SECRET_KEY", "this-is-not-s3cur3")
 )
 
 # Call django.setup to load installed apps and other stuff.
@@ -104,7 +105,7 @@ html_static_path = ['_static']
 
 
 def setup(app):
-    app.add_stylesheet('styles.css')
+    app.add_css_file('styles.css')
     app.connect('autodoc-process-docstring', between('^.*IGNORE.*$', exclude=True))
     return app
 
