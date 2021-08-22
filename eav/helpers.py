@@ -1,4 +1,9 @@
 from eav.models import EnumValue
 
 def unspecified():
-    return EnumValue.objects.get_or_create(value='unspecified')[0]
+    try:
+        return EnumValue.objects.get(value='unspecified')
+    except:
+        return EnumValue.objects.create(
+            value='unspecified'
+        )
