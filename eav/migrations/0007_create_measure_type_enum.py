@@ -28,12 +28,15 @@ def populate(apps, schema_editor):
         value_display_fr='contact direct'
     )
 
-    unspecified = EnumValue.objects.create(
-        value='unspecified',
-        value_display='Unspecified',
-        value_display_fr='Non spécifié'
-    )
-
+    try:
+        unspecified = EnumValue.objects.create(
+            value='unspecified',
+            value_display='Unspecified',
+            value_display_fr='Non spécifié'
+        )
+    except:
+        pass
+    
     measure_types = EnumGroup.objects.create(
         name='measure_types',
     )
