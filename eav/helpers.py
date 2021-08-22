@@ -4,4 +4,8 @@ def unspecified():
     try:
         return EnumValue.objects.get(value='unspecified')
     except:
-        return EnumValue.objects.first()
+        return EnumValue.objects.create(
+            value='unspecified',
+            value_display='Unspecified',
+            value_display_fr='Non spécifié'
+        )
