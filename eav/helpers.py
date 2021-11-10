@@ -20,3 +20,14 @@ def direct_measurement():
         )
 
     return direct
+
+
+def homogenized_powder():
+    try:
+        homogenized_powder = EnumValue.objects.get(value='powder')
+    except:
+        homogenized_powder = EnumValue.objects.create(
+            value='powder'
+        )
+
+    return homogenized_powder
