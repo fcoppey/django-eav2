@@ -2,10 +2,49 @@
 
 from copy import deepcopy
 
+from django import forms
 from django.contrib.admin.widgets import AdminSplitDateTime
-from django.forms import (BooleanField, CharField, ChoiceField, DateTimeField,
-                          FloatField, IntegerField, ModelForm)
-from django.utils.translation import ugettext_lazy as _
+from django.core.exceptions import ValidationError
+from django.forms import (
+    BooleanField,
+    CharField,
+    ChoiceField,
+    DateTimeField,
+    FloatField,
+    IntegerField,
+    ModelForm,
+)
+from django.utils.translation import gettext_lazy as _
+
+try:
+    from django.forms import JSONField
+except:
+    JSONField = CharField
+
+from eav.widgets import CSVWidget
+
+
+class CSVFormField(forms.Field):
+    message = _('Enter comma-separated-values. eg: one;two;three.')
+    code = 'invalid'
+    widget = CSVWidget
+    default_separator = ";"
+
+    def __init__(self, *args, **kwargs):
+        kwargs.pop('max_length', None)
+        super().__init__(*args, **kwargs)
+
+    def to_python(self, value):
+        if not value:
+            return []
+        return [v.strip() for v in value.split(self.separator) if v]
+
+    def validate(self, value):
+        super().validate(value)
+        try:
+            isinstance(value.split(self.separator), list)
+        except ValidationError:
+            raise ValidationError(self.message, code=self.code)
 
 
 class BaseDynamicEntityForm(ModelForm):
@@ -28,8 +67,11 @@ class BaseDynamicEntityForm(ModelForm):
     int    DateTimeField
     bool   BooleanField
     enum   ChoiceField
+    json   JSONField
+    csv    CSVField
     =====  =============
     """
+
     FIELD_CLASSES = {
         'text': CharField,
         'float': FloatField,
@@ -37,6 +79,8 @@ class BaseDynamicEntityForm(ModelForm):
         'date': DateTimeField,
         'bool': BooleanField,
         'enum': ChoiceField,
+        'json': JSONField,
+        'csv': CSVFormField,
     }
 
     def __init__(self, data=None, *args, **kwargs):
@@ -87,10 +131,12 @@ class BaseDynamicEntityForm(ModelForm):
         ``self.instance`` and related EAV attributes. Returns ``instance``.
         """
         if self.errors:
-            raise ValueError(_(
-                'The %s could not be saved because the data'
-                'didn\'t validate.' % self.instance._meta.object_name
-            ))
+            raise ValueError(
+                _(
+                    'The %s could not be saved because the data'
+                    'didn\'t validate.' % self.instance._meta.object_name
+                )
+            )
 
         # Create entity instance, don't save yet.
         instance = super(BaseDynamicEntityForm, self).save(commit=False)

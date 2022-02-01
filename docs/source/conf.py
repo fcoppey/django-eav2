@@ -18,15 +18,16 @@ sys.path.insert(0, os.path.abspath('../../'))
 
 # Pass settings into configure.
 settings.configure(
-    INSTALLED_APPS = [
+    INSTALLED_APPS=[
         'django.contrib.admin',
         'django.contrib.auth',
         'django.contrib.contenttypes',
         'django.contrib.sessions',
         'django.contrib.messages',
         'django.contrib.staticfiles',
-        'eav'
-    ]
+        'eav',
+    ],
+    SECRET_KEY=os.environ.get("DJANGO_SECRET_KEY", "this-is-not-s3cur3"),
 )
 
 # Call django.setup to load installed apps and other stuff.
@@ -55,10 +56,7 @@ extensions = [
 ]
 
 html_theme_options = dict(
-    show_powered_by = False,
-    show_related = True,
-    fixed_sidebar = True,
-    font_family = 'Roboto'
+    show_powered_by=False, show_related=True, fixed_sidebar=True, font_family='Roboto'
 )
 
 templates_path = ['_templates']
@@ -104,23 +102,14 @@ html_static_path = ['_static']
 
 
 def setup(app):
-    app.add_stylesheet('styles.css')
+    app.add_css_file('styles.css')
     app.connect('autodoc-process-docstring', between('^.*IGNORE.*$', exclude=True))
     return app
 
 
 html_sidebars = {
-    'index': [
-        'sidebarintro.html',
-        'localtoc.html'
-    ],
-    '**': [
-        'sidebarintro.html',
-                'localtoc.html',
-
-        'relations.html',
-        'searchbox.html'
-    ]
+    'index': ['sidebarintro.html', 'localtoc.html'],
+    '**': ['sidebarintro.html', 'localtoc.html', 'relations.html', 'searchbox.html'],
 }
 
 
@@ -136,15 +125,12 @@ latex_elements = {
     # The paper size ('letterpaper' or 'a4paper').
     #
     # 'papersize': 'letterpaper',
-
     # The font size ('10pt', '11pt' or '12pt').
     #
     # 'pointsize': '10pt',
-
     # Additional stuff for the LaTeX preamble.
     #
     # 'preamble': '',
-
     # Latex figure (float) alignment
     #
     # 'figure_align': 'htbp',
@@ -154,8 +140,7 @@ latex_elements = {
 # (source start file, target name, title,
 #  author, documentclass [howto, manual, or own class]).
 latex_documents = [
-    (master_doc, 'DjangoEAV2.tex', 'Django EAV 2 Documentation',
-     '-', 'manual'),
+    (master_doc, 'DjangoEAV2.tex', 'Django EAV 2 Documentation', '-', 'manual'),
 ]
 
 
@@ -163,10 +148,7 @@ latex_documents = [
 
 # One entry per manual page. List of tuples
 # (source start file, name, description, authors, manual section).
-man_pages = [
-    (master_doc, 'djangoeav2', 'Django EAV 2 Documentation',
-     [author], 1)
-]
+man_pages = [(master_doc, 'djangoeav2', 'Django EAV 2 Documentation', [author], 1)]
 
 
 # -- Options for Texinfo output ----------------------------------------------
@@ -175,9 +157,15 @@ man_pages = [
 # (source start file, target name, title, author,
 #  dir menu entry, description, category)
 texinfo_documents = [
-    (master_doc, 'DjangoEAV2', 'Django EAV 2 Documentation',
-     author, 'DjangoEAV2', 'One line description of project.',
-     'Miscellaneous'),
+    (
+        master_doc,
+        'DjangoEAV2',
+        'Django EAV 2 Documentation',
+        author,
+        'DjangoEAV2',
+        'One line description of project.',
+        'Miscellaneous',
+    ),
 ]
 
 # -- Extension configuration -------------------------------------------------

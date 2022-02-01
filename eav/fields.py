@@ -2,7 +2,9 @@ import re
 
 from django.core.exceptions import ValidationError
 from django.db import models
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
+
+from eav.forms import CSVFormField
 
 
 class EavSlugField(models.SlugField):
@@ -21,10 +23,12 @@ class EavSlugField(models.SlugField):
         slug_regex = r'[a-z][a-z0-9_]*'
 
         if not re.match(slug_regex, value):
-            raise ValidationError(_(
-                'Must be all lower case, start with a letter, and contain '
-                'only letters, numbers, or underscores.'
-            ))
+            raise ValidationError(
+                _(
+                    'Must be all lower case, start with a letter, and contain '
+                    'only letters, numbers, or underscores.'
+                )
+            )
 
     @staticmethod
     def create_slug_from_name(name):
@@ -58,6 +62,53 @@ class EavDatatypeField(models.CharField):
             return
 
         if instance.value_set.count():
-            raise ValidationError(_(
-                'You cannot change the datatype of an attribute that is already in use.'
-            ))
+            raise ValidationError(
+                _(
+                    'You cannot change the datatype of an attribute that is already in use.'
+                )
+            )
+
+
+class CSVField(models.TextField):  # (models.Field):
+    description = _("A Comma-Separated-Value field.")
+    default_separator = ";"
+
+    def __init__(self, separator=";", *args, **kwargs):
+        self.separator = separator
+        kwargs.setdefault('default', "")
+        super().__init__(*args, **kwargs)
+
+    def deconstruct(self):
+        name, path, args, kwargs = super().deconstruct()
+        if self.separator != self.default_separator:
+            kwargs['separator'] = self.separator
+        return name, path, args, kwargs
+
+    def formfield(self, **kwargs):
+        defaults = {'form_class': CSVFormField}
+        defaults.update(kwargs)
+        return super().formfield(**defaults)
+
+    def from_db_value(self, value, expression, connection, context=None):
+        if value is None:
+            return []
+        return value.split(self.separator)
+
+    def to_python(self, value):
+        if value is None:
+            return []
+        if isinstance(value, list):
+            return value
+        return value.split(self.separator)
+
+    def get_prep_value(self, value):
+        if not value:
+            return ""
+        if isinstance(value, str):
+            return value
+        elif isinstance(value, list):
+            return self.separator.join(value)
+
+    def value_to_string(self, obj):
+        value = self.value_from_object(obj)
+        return self.get_prep_value(value)

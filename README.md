@@ -1,14 +1,13 @@
-[![Build Status](https://travis-ci.org/makimo/django-eav2.svg?branch=master)](https://travis-ci.org/makimo/django-eav2)
-[![Coverage Status](https://coveralls.io/repos/github/makimo/django-eav2/badge.svg?branch=master)](https://coveralls.io/github/makimo/django-eav2?branch=master)
-[![Codacy Badge](https://api.codacy.com/project/badge/Grade/159540d899bd41bb860f0ce996427e1f)](https://www.codacy.com/app/IwoHerka/django-eav2?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=makimo/django-eav2&amp;utm_campaign=Badge_Grade)
-[![Maintainability](https://api.codeclimate.com/v1/badges/b90eacf7a90db4b58f13/maintainability)](https://codeclimate.com/github/makimo/django-eav2/maintainability)
-![Python Version](https://img.shields.io/badge/Python-2.7,%203.5,%203.6,%203.7dev-blue.svg)
-![Django Version](https://img.shields.io/badge/Django-1.11,%202.0,%203.0,%20tip-green.svg)
+[![Build Status](https://github.com/jazzband/django-eav2/actions/workflows/test.yml/badge.svg)](https://github.com/jazzband/django-eav2/actions/workflows/test.yml)
+[![codecov](https://codecov.io/gh/jazzband/django-eav2/branch/master/graph/badge.svg?token=BJk3zS22BS)](https://codecov.io/gh/jazzband/django-eav2)
+[![Python Version](https://img.shields.io/pypi/pyversions/django-eav2.svg)](https://pypi.org/project/django-eav2/)
+[![Django Version](https://img.shields.io/pypi/djversions/django-eav2.svg?color=green)](https://pypi.org/project/django-eav2/)
+[![Jazzband](https://jazzband.co/static/img/badge.svg)](https://jazzband.co/)
 
 ## Django EAV 2 - Entity-Attribute-Value storage for Django
 
 Django EAV 2 is a fork of django-eav (which itself was derived from eav-django).
-You can find documentation <a href="https://django-eav-2.rtfd.io">here</a>.
+You can find documentation <a href="https://django-eav2.rtfd.io">here</a>.
 
 ## What is EAV anyway?
 
@@ -16,16 +15,16 @@ You can find documentation <a href="https://django-eav-2.rtfd.io">here</a>.
 
 Data in EAV is stored as a 3-tuple (typically corresponding to three distinct tables):
 
-* The entity: the item being described, e.g. `Person(name='Mike')`.
-* The attribute: often a foreign key into a table of attributes, e.g. `Attribute(slug='height', datatype=FLOAT)`.
-* The value of the attribute, with links both an attribute and an entity, e.g. `Value(value_float=15.5, person=mike, attr=height)`.
+- The entity: the item being described, e.g. `Person(name='Mike')`.
+- The attribute: often a foreign key into a table of attributes, e.g. `Attribute(slug='height', datatype=FLOAT)`.
+- The value of the attribute, with links both an attribute and an entity, e.g. `Value(value_float=15.5, person=mike, attr=height)`.
 
 Entities in **django-eav2** are your typical Django model instances. Attributes (name and type) are stored in their own table, which makes it easy to manipulate the list of available attributes in the system. Values are an intermediate table between attributes and entities, each instance holding a single value.
 This implementation also makes it easy to edit attributes in Django Admin and form instances.
 
 You will find detailed description of the EAV here:
 
-* [Wikipedia - Entity–attribute–value model](https://en.wikipedia.org/wiki/Entity%E2%80%93attribute%E2%80%93value_model)
+- [Wikipedia - Entity–attribute–value model](https://en.wikipedia.org/wiki/Entity%E2%80%93attribute%E2%80%93value_model)
 
 ## EAV - The Good, the Bad or the Ugly?
 
@@ -37,24 +36,24 @@ Originally, EAV was introduced to workaround a problem which cannot be easily so
 
 Typical application of the EAV model sets to solve the problem of sparse data with a large number of applicable attributes, but only a small fraction that applies to a given entity that may not be known beforehand. Consider the classic example:
 
- > A problem that data modelers commonly encounter in the biomedical domain is organizing and storing highly diverse and heterogeneous data. For example, a single patient may have thousands of applicable descriptive parameters, all of which need to be easily accessible in an electronic patient record system. These requirements pose significant modeling and implementation challenges. [1]
+> A problem that data modelers commonly encounter in the biomedical domain is organizing and storing highly diverse and heterogeneous data. For example, a single patient may have thousands of applicable descriptive parameters, all of which need to be easily accessible in an electronic patient record system. These requirements pose significant modeling and implementation challenges. [1]
 
- And:
+And:
 
- > [...] what do you do when you have customers that demand real-time, on-demand addition of attributes that they want to store?  In one of the systems I manage, our customers wanted to do exactly this.  Since we run a SaaS (software as a service) application, we have many customers across several different industries, who in turn want to use our system to store different types of information about *their* customers.  A salon chain might want to record facts such as 'hair color,' 'hair type,' and 'haircut frequency'; while an investment company might want to record facts such as 'portfolio name,' 'last portfolio adjustment date,' and 'current portfolio balance.' [2]
+> [...] what do you do when you have customers that demand real-time, on-demand addition of attributes that they want to store? In one of the systems I manage, our customers wanted to do exactly this. Since we run a SaaS (software as a service) application, we have many customers across several different industries, who in turn want to use our system to store different types of information about _their_ customers. A salon chain might want to record facts such as 'hair color,' 'hair type,' and 'haircut frequency'; while an investment company might want to record facts such as 'portfolio name,' 'last portfolio adjustment date,' and 'current portfolio balance.' [2]
 
- In both of these problems we have to deal with sparse and heterogeneous properties that apply only to potentially different subsets of particular entities. Applying EAV to a sub-schema of the database allows to model the desired behaviour. Traditional solution would involves wide tables with many columns storing NULL values for attributes that don't apply to an entity.
+In both of these problems we have to deal with sparse and heterogeneous properties that apply only to potentially different subsets of particular entities. Applying EAV to a sub-schema of the database allows to model the desired behaviour. Traditional solution would involves wide tables with many columns storing NULL values for attributes that don't apply to an entity.
 
 Very common use case for EAV are custom product attributes in E-commerce implementations, such as Magento. [3]
 
- As a rule of thumb, EAV can be used when:
- 
- * Model attributes are to be added and removed by end users (or are unknowable in some different way). EAV supports these without ALTER TABLE statements and allows the attributes to be strongly typed and easily searchable.
- * There will be many attributes and values are sparse, in contrast to having tables with mostly-null columns.
- * The data is highly dynamic/volatile/vulnerable to change. This problem is present in the second example given above. Other example would be rapidly evolving system, such as a prototype with constantly changing requirements.
- * We want to store meta-data or supporting information, e.g. to customize system's behavior.
- * Numerous classes of data need to be represented, each class has a limited number of attributes, but the number of instances of each class is very small.
-* We want to minimise programmer's input when changing the data model.
+As a rule of thumb, EAV can be used when:
+
+- Model attributes are to be added and removed by end users (or are unknowable in some different way). EAV supports these without ALTER TABLE statements and allows the attributes to be strongly typed and easily searchable.
+- There will be many attributes and values are sparse, in contrast to having tables with mostly-null columns.
+- The data is highly dynamic/volatile/vulnerable to change. This problem is present in the second example given above. Other example would be rapidly evolving system, such as a prototype with constantly changing requirements.
+- We want to store meta-data or supporting information, e.g. to customize system's behavior.
+- Numerous classes of data need to be represented, each class has a limited number of attributes, but the number of instances of each class is very small.
+- We want to minimise programmer's input when changing the data model.
 
 For more throughout discussion on the appriopriate use-cases see:
 
@@ -86,22 +85,35 @@ In some use-cases, JSONB (binary JSON data) datatype (Postgres 9.4+ and analogou
 
 ## Installation
 
-You can install **django-eav2** from three sources:
+Install with pip
+
 ```bash
-# From PyPI via pip
 pip install django-eav2
+```
 
-# From source via pip
-pip install git+https://github.com/makimo/django-eav2@master
+## Configuration
 
-# From source via setuptools
-git clone git@github.com:makimo/django-eav2.git
-cd django-eav2
-python setup.py install
+Add `eav2` to `INSTALLED_APPS` in your settings.
 
-# To uninstall:
-python setup.py install --record files.txt
-rm $(cat files.txt)
+```python
+INSTALLED_APPS = [
+    ...
+    'eav',
+]
+```
+
+### Note: Django 2.2 Users
+
+Since `models.JSONField()` isn't supported in Django 2.2, we use [django-jsonfield-backport](https://github.com/laymonage/django-jsonfield-backport) to provide [JSONField](https://docs.djangoproject.com/en/dev/releases/3.1/#jsonfield-for-all-supported-database-backends) functionality.
+
+This requires adding `django_jsonfield_backport` to your `INSTALLED_APPS` as well.
+
+```python
+INSTALLED_APPS = [
+    ...
+    'eav',
+    'django_jsonfield_backport',
+]
 ```
 
 ## Getting started
@@ -139,10 +151,9 @@ Supplier.objects.filter(eav__city='London')
 # = <EavQuerySet [<Supplier: Supplier object (1)>]>
 ```
 
-### What next? Check out <a href="https://django-eav-2.readthedocs.io/en/improvement-docs/">documentation</a>.
+**What next? Check out the <a href="https://django-eav2.readthedocs.io/en/latest/#documentation">documentation</a>.**
 
-<hr>
-<br>
+---
 
 ### References
 
